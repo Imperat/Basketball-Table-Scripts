@@ -71,7 +71,7 @@ def function(ar="kefal"):
         
                     #c.create_image(0, 0, image=img, anchor="nw")
                     c.create_rectangle(0,0,json_data["width"],json_data["height"],
-                        fill=json_data["color"],outline="blue")
+                        fill=json_data["color"],outline=json_data["color"])
 
                     c.create_text(json_data["position"][0],json_data["position"][1],text=attach, 
                         font=json_data["font"],anchor="w",justify=CENTER,fill=json_data["colorFill"]) 
@@ -82,6 +82,13 @@ def function(ar="kefal"):
             pass
     root.after(1, function)
 
+def set_coord(args):
+    x, y = root.winfo_pointerxy()
+    root.wm_geometry("+%d+%d" % (x, y))
+
+
 root.after(0, function)
-root.overrideredirect(1)
+root.overrideredirect(True)
+root.bind("s", set_coord)
+root.bd = 0
 root.mainloop()
